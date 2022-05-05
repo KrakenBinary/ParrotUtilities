@@ -1,0 +1,95 @@
+#!/bin/bash
+echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+echo "Running ZeCow Updates:"
+#echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+#echo "Attempting to update ParrotOS"
+sudo parrot-upgrade
+echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+echo "Method 2 for Updating things for ParrotOS"
+#sudo apt-get update
+#sudo apt update
+#sudo apt full-upgrade
+echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+echo "Install Tools"
+#if ! [ -x "$(command -v stegsolve)" ]
+#	then echo 'stegsolve is not installed'
+#	wget http://www.caesum.com/handbook/Stegsolve.jar -O stegsolve.jar
+#	chmod +x stegsolve.jar
+#	mkdir bin
+#	mv stegsolve.jar bin/
+#fi
+
+if ! [ -x "$(command -v locate)" ]
+	then echo 'locate is not installed'
+	sudo apt install mlocate
+fi
+if ! [ -x "$(command -v obs)" ]
+	then echo 'OBS is not installed'
+	sudo add-apt-repository ppa:obsproject/obs-studio
+	sudo apt install obs-studio
+fi
+if ! [ -x "$(command -v neofetch)" ]
+	then echo 'neofetch is not installed'
+	sudo apt-get install neofetch
+fi
+if ! [ -x "$(command -v snap)" ]
+	then echo 'snap is not installed'
+	sudo apt install snapd
+fi
+if ! [ -x "$(command -v figlet)" ]
+	then echo 'figlet is not installed'
+	sudo apt-get install figlet
+fi
+if ! [ -x "$(command -v discord)" ]
+	then echo 'discord is not installed'
+	snap install discord
+fi
+if ! [ -x "$(command -v r2)" ]
+	then echo 'r2 is not installed'
+	#https://rada.re/n/radare2.html
+	git clone https://github.com/radareorg/radare2
+	cd radare2 ; sys/install.sh
+fi
+if ! [ -x "$(command -v python3 -c 'from pwn import *')" ]
+	then echo 'pwntools is not installed'
+	#https://github.com/Gallopsled/pwntools-tutorial/blob/master/installing.md
+	sudo apt-get install python3 python3-pip python3-dev git libssl-dev libffi-dev build-essential
+	python3 -m pip install --upgrade pip
+	python3 -m pip install --upgrade pwntools
+fi
+if ! [ -x "$(command -v docker)" ]
+	then echo 'docker is not installed'
+		
+	# Install dependencies.
+	sudo apt install -y curl apt-transport-https \
+		 software-properties-common ca-certificates
+
+	# Install docker.
+	curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+	echo "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" | \
+	  sudo tee /etc/apt/sources.list.d/docker-engine.list
+
+	sudo apt-get update -y
+	sudo apt-get install -y docker-ce
+
+	# Run docker.
+	sudo systemctl start docker
+	sudo systemctl enable docker
+
+	# Add user to docker group for using docker without sudo command.
+	sudo gpasswd -a "${USER}" docker
+fi
+echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+echo "Lets clean up non-needed things"
+sudo apt autoremove
+echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+echo "Update some randomness"
+sudo sudo updatedb #this is for mlocate
+echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+echo "All Done!"
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Things not included here
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#	https://www.nerdfonts.com/
+#		git clone --depth 1 https://github.com/ryanoasis/nerd-fonts.git
+#		./install.sh
