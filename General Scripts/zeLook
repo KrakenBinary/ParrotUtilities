@@ -1,0 +1,47 @@
+#!/bin/bash
+arg1=$1
+dir=$(pwd)
+fdir=$dir/$arg1
+echo "-=-=-=-=-=-=-=-=-=-=-=-=-"
+echo $fdir
+if [ -f "$fdir" ]; then
+    echo "-=-=-=-=-=-=-=-=-=-=-=-=-"
+    echo "file"
+    echo "-------------------------"
+    file $arg1
+    echo ""
+    echo "-=-=-=-=-=-=-=-=-=-=-=-=-"
+    echo "strings"
+    echo "-------------------------"
+    strings $arg1
+    echo ""
+    read -sp "Run exif? [*/n]" uiexif
+	echo ""
+    if [ "$uiexif" != "n" ]; then
+		echo "-=-=-=-=-=-=-=-=-=-=-=-=-"
+		echo "exif"
+		echo "-------------------------"
+		exiftool $arg1
+		echo ""
+	else
+		echo "skipping exif"
+		echo ""
+	fi
+    read -sp "Run cat? [*/n]" uicat
+	echo ""
+    if [ "$uicat" != "n" ]; then
+		echo "-=-=-=-=-=-=-=-=-=-=-=-=-"
+		echo "cat"
+		echo "-------------------------"
+		cat $arg1
+		echo ""
+	else
+		echo "skipping cat"
+		echo ""
+	fi
+else 
+    echo "-=-=-=-=-=-=-=-=-=-=-=-=-"
+    echo "$arg1 does not exist"
+fi
+echo ""
+echo ""
