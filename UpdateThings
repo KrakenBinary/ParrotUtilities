@@ -57,6 +57,22 @@ if ! [ -x "$(command -v python3 -c 'from pwn import *')" ]
 	python3 -m pip install --upgrade pip
 	python3 -m pip install --upgrade pwntools
 fi
+if ! [ -x "$(command -v pycodestyle)" ]
+	then echo 'pycodestyle is not installed'
+	sudo apt install pycodestyle #Python code checker and linter commands
+fi
+if ! [ -x "$(command -v pyflakes3)" ]
+	then echo 'pyflakes3 is not installed'
+	sudo apt install pyflakes3 #pyflakes checks your dependencies and import statements
+fi
+if ! [ -x "$(command -v pycodestyle)" ]
+	then echo 'pycodestyle is not installed'
+	sudo apt install pycodestyle #pycodestyle checks your code formatting
+fi
+if ! [ -x "$(command -v pylint)" ]
+	then echo 'pylint is not installed'
+	sudo apt install pylint #pycodestyle checks your code formatting
+fi
 if ! [ -x "$(command -v docker)" ]
 	then echo 'docker is not installed'
 		
