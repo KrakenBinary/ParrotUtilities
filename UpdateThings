@@ -95,6 +95,15 @@ if ! [ -x "$(command -v docker)" ]
 	# Add user to docker group for using docker without sudo command.
 	sudo gpasswd -a "${USER}" docker
 fi
+if ! [ -x "$(command -v gem)" ]
+	then echo 'gem is not installed' #used for my github.io site
+	sudo apt-get install ruby-full build-essential
+    sudo gem install bundler jekyll
+fi
+if ! [ -x "$(command -v jekyll)" ]
+	then echo 'jekyll is not installed' #used for my github.io site
+    sudo gem install bundler jekyll
+fi
 echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 echo "Lets clean up non-needed things"
 sudo apt autoremove
